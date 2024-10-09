@@ -27,12 +27,15 @@ func! s:GrepOperator(type, needs_prompt) " {{{
     " Look the pattern in the given filenames
     call s:Grep(pattern, filenames)
 
-    " Open the quick fix window
-    below copen
-    " Prevents the terminal from hiding characters
-    " This appends sometimes when using external commands
-    " See :help various.txt|528
-    redraw!
+    let popups = popup_list()
+    if empty(popups)
+      " Open the quick fix window
+      below copen
+      " Prevents the terminal from hiding characters
+      " This appends sometimes when using external commands
+      " See :help various.txt|528
+      redraw!
+    endif
   endif
 
   " Restore the unamed register
