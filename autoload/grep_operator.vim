@@ -74,8 +74,11 @@ func! s:Grep(pattern, filenames) " {{{
 
   " Execute the command and don't jump to the first match (The :grep! form
   " does that)
+  if operator == 'grep'
+    let operator ..= '!'
+  endif
   silent execute
-        \ operator . '! ' . shellescape(a:pattern, 1) . ' ' .
+        \ operator . ' ' . shellescape(a:pattern, 1) . ' ' .
         \ join(map(copy(a:filenames), 'shellescape(v:val)'), ' ')
 endf
 " }}}
